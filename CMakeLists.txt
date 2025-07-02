@@ -17,10 +17,22 @@ file(GLOB_RECURSE CPP_SOURCES
 )
 
 set(CUDA_SOURCES
-    ${XENON_SRC_DIR}/main.cu
+    ${XENON_SRC_DIR}/CUDA/CUDACommon.cuh
+    ${XENON_SRC_DIR}/CUDA/HashMap.cuh
+    ${XENON_SRC_DIR}/CUDA/HashMap.cu
+    ${XENON_SRC_DIR}/CUDA/Geometry.cuh
+    ${XENON_SRC_DIR}/CUDA/Geometry.cu
+
+    ${XENON_SRC_DIR}/CUDA/main.cuh
+    ${XENON_SRC_DIR}/CUDA/main.cu
 )
 
 add_library(cuda_kernels STATIC ${CUDA_SOURCES})
+
+target_include_directories(cuda_kernels PRIVATE
+    ${POLYSCOPE_DIR}/deps/glad/include
+)
+
 set_target_properties(cuda_kernels PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
     POSITION_INDEPENDENT_CODE ON
